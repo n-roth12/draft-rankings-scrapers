@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 from .abstract_scraper import AbstractScraper
+from .constants import Format
 
 URLS = {
-    "standard": "https://fantasyfootballcalculator.com/rankings/standard",
-    "half": "https://fantasyfootballcalculator.com/rankings/half-ppr",
-    "full": "https://fantasyfootballcalculator.com/rankings/ppr"
+    Format.STANDARD: "https://fantasyfootballcalculator.com/rankings/standard",
+    Format.HALF_PPR: "https://fantasyfootballcalculator.com/rankings/half-ppr",
+    Format.PPR: "https://fantasyfootballcalculator.com/rankings/ppr"
 }
 
 class FantasyFootballCalculatorScraper(AbstractScraper):
@@ -15,13 +16,12 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
 
     @classmethod
     def supported_formats(cls) -> list:
-        return list(URLS.keys())
+        return [format.name for format in URLS.keys()]
 
     def __init__(self) -> None:
         super().__init__()
-        self.standard_data = self.scrape("standard")
-        self.half_ppr_data = self.scrape("half")
-        self.ppr_data = self.scrape("full")
+        for format in URLS.keys():
+            self.data[format] = self.scrape(format)
 
     def scrape(self, format: str):
         results = requests.get(URLS[format], headers=self.headers, timeout=5)
@@ -45,10 +45,10 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
         return result
     
     def standard_rankings(self):
-        return self.standard_data
+        return self.data[Format.STANDARD]
 
     def half_ppr_rankings(self):
-        return self.half_ppr_data
+        return self.data[Format.HALF_PPR]
 
     def ppr_rankings(self):
-        return self.ppr_data
+        return self.data[Format.PPR]
