@@ -2,8 +2,9 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleW
 
 class AbstractScraper:
 
-    def __init__(self, format: str) -> None:
+    def __init__(self) -> None:
         self.headers = HEADERS
+        self.data = {}
 
     @classmethod
     def host(cls):

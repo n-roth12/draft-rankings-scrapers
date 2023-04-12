@@ -3,47 +3,47 @@ import requests
 import re
 import json
 from .abstract_scraper import AbstractScraper
+from .constants import Format
 
 URLS = {
-    "standard": "https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php",
-    "half": "https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php",
-    "full": "https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php"
+    Format.STANDARD: "https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php",
+    Format.HALF_PPR: "https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php",
+    Format.PPR: "https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php"
 }
 
 class FantasyProsScraper(AbstractScraper):
     @classmethod
-    def host(self):
+    def host(self) -> str:
         return "fantasypros.com"
 
     @classmethod
     def supported_formats(cls) -> list:
-        return list(URLS.keys())
+        return [format.name for format in URLS.keys()]
 
-    def __init__(self, url):
-        super().__init__(url)
-        self.standard_data = self.scrape("standard")
-        self.half_ppr_data = self.scrape("half")
-        self.ppr_data = self.scrape("full")
+    def __init__(self) -> None:
+        super().__init__()
+        for format in URLS.keys():
+            self.data[format] = self.scrape(format)
 
-    def scrape(self, format: str):
+    def scrape(self, format: str) -> list:
         results = requests.get(URLS[format], headers=self.headers, timeout=5)
+        print(self.headers)
         soup = BeautifulSoup(results.text, "html.parser")
 
         scripts = soup.find_all("script")
-        p = re.compile('/var ecrData/')
         for script in scripts:
             if (script.string):
                 z = re.search("var ecrData = {.*};", script.string)
                 if z:
                     temp = z.group(0).replace("var ecrData = ", "").replace(";", "")
                     data = json.loads(temp)
-                    return data
+                    return data["players"]
 
-    def standard_rankings(self):
-        return self.standard_data
+    def standard_rankings(self) -> list:
+        return self.data[Format.STANDARD]
 
-    def half_ppr_rankings(self):
-        return self.half_ppr_data
+    def half_ppr_rankings(self) -> list:
+        return self.data[Format.HALF_PPR]
 
-    def ppr_rankings(self):
-        return self.ppr_data
+    def ppr_rankings(self) -> list:
+        return self.data[Format.PPR]

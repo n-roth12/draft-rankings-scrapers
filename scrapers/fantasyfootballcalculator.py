@@ -17,8 +17,8 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
     def supported_formats(cls) -> list:
         return list(URLS.keys())
 
-    def __init__(self, url: str) -> None:
-        super().__init__(url)
+    def __init__(self) -> None:
+        super().__init__()
         self.standard_data = self.scrape("standard")
         self.half_ppr_data = self.scrape("half")
         self.ppr_data = self.scrape("full")
