@@ -35,11 +35,11 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
         for tr in trs:
             tds = tr.find_all("td")
             result.append({
-                "rank": tds[0].text,
+                "rank": int(tds[0].text.replace(".", "")),
                 "name": tds[1].find("a").text,
                 "team": tds[2].text,
                 "position": tds[3].text,
-                "bye": tds[4].text
+                "bye": int(tds[4].text)
             })
 
         return result

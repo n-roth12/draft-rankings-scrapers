@@ -46,7 +46,7 @@ class CBSSportsScraper(AbstractScraper):
         result = sorted([{ 
             "name": name, "position": data["position"], "team": data["team"], "avg": sum(data["ranks"]) / len(data["ranks"])
         } for name, data in players.items()], key=lambda x: x["avg"])
-        
+
         for index, player in enumerate(result):
             player["rank"] = index + 1
         return result

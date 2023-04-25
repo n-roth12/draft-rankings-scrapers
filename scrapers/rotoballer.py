@@ -23,8 +23,15 @@ class RotoBallerScraper(AbstractScraper):
             self.data[format] = self.scrape(format)
 
     def scrape(self, format):
-        result = requests.get(URLS[format])
-        return result.json()["data"]
+        res = requests.get(URLS[format])
+        players = []
+        for player in res.json()["data"]:
+            players.append({
+                "name": player["player"]["name"],
+                "rank": player["rank"],
+                "position": player["position"],
+            })
+        return players
 
     def standard_rankings(self):
         return self.data[Format.STANDARD]
