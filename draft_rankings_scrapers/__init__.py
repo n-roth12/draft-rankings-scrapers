@@ -17,7 +17,7 @@ def scrape(site: str) -> AbstractScraper:
     return scraper
 
 
-def get_supported_sites() -> list[str]:
+def get_supported_sites() -> list:
     return list(SCRAPERS.keys())
 
 

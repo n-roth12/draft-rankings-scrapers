@@ -3,7 +3,7 @@ from draft_rankings_scrapers import scrape
 from draft_rankings_scrapers.format import Format
 
 
-def optimize(args: list[str]):
+def scrape_rankings(args: list):
     if len(args) < 3:
         print('Missin arguments: must include both site and player pool filename.')
         return
@@ -15,4 +15,4 @@ def optimize(args: list[str]):
 
 
 if __name__ == '__main__':
-    optimize(sys.argv)
+    scrape_rankings(sys.argv)
