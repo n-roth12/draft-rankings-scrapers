@@ -1,12 +1,16 @@
 import requests
 from .abstract_scraper import AbstractScraper
-from .constants import Format
+from .format import Format
 
 URLS = {
-    Format.STANDARD: "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=standard&twoQb=false",
-    Format.HALF_PPR: "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=half-ppr&twoQb=false",
-    Format.PPR: "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=ppr&twoQb=false"
+    Format.STANDARD:
+        "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=standard&twoQb=false",
+    Format.HALF_PPR:
+        "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=half-ppr&twoQb=false",
+    Format.PPR:
+        "https://rankings.rotoballer.com:8000/api/players?league=Overall&leagueSize=10&page=1&perPage=300&spreadsheet=ppr&twoQb=false"
 }
+
 
 class RotoBallerScraper(AbstractScraper):
     @classmethod
@@ -38,6 +42,6 @@ class RotoBallerScraper(AbstractScraper):
 
     def half_ppr_rankings(self):
         return self.data[Format.HALF_PPR]
-    
+
     def ppr_rankings(self):
         return self.data[Format.PPR]

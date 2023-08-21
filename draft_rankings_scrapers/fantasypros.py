@@ -3,13 +3,17 @@ import requests
 import re
 import json
 from .abstract_scraper import AbstractScraper
-from .constants import Format
+from .format import Format
 
 URLS = {
-    Format.STANDARD: "https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php",
-    Format.HALF_PPR: "https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php",
-    Format.PPR: "https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php"
+    Format.STANDARD:
+        "https://www.fantasypros.com/nfl/rankings/consensus-cheatsheets.php",
+    Format.HALF_PPR:
+        "https://www.fantasypros.com/nfl/rankings/half-point-ppr-cheatsheets.php",
+    Format.PPR:
+        "https://www.fantasypros.com/nfl/rankings/ppr-cheatsheets.php"
 }
+
 
 class FantasyProsScraper(AbstractScraper):
     @classmethod
@@ -37,6 +41,13 @@ class FantasyProsScraper(AbstractScraper):
                     temp = z.group(0).replace("var ecrData = ", "").replace(";", "")
                     data = json.loads(temp)
                     return data["players"]
+
+    def get_format(self, format: str):
+        if format not in self.data.keys():
+            print(self.data.keys())
+            print('Error: Invalid format provided')
+            return None
+        return self.data[format]
 
     def standard_rankings(self) -> list:
         return self.data[Format.STANDARD]

@@ -1,13 +1,17 @@
 from bs4 import BeautifulSoup
 import requests
 from .abstract_scraper import AbstractScraper
-from .constants import Format
+from .format import Format
 
 URLS = {
-    Format.STANDARD: "https://fantasyfootballcalculator.com/rankings/standard",
-    Format.HALF_PPR: "https://fantasyfootballcalculator.com/rankings/half-ppr",
-    Format.PPR: "https://fantasyfootballcalculator.com/rankings/ppr"
+    Format.STANDARD:
+        "https://fantasyfootballcalculator.com/rankings/standard",
+    Format.HALF_PPR:
+        "https://fantasyfootballcalculator.com/rankings/half-ppr",
+    Format.PPR:
+        "https://fantasyfootballcalculator.com/rankings/ppr"
 }
+
 
 class FantasyFootballCalculatorScraper(AbstractScraper):
     @classmethod
@@ -30,8 +34,8 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
         table = soup.find("table")
         tbody = table.find("tbody")
         trs = tbody.find_all("tr")
-        result = []    
-        
+        result = []
+
         for tr in trs:
             tds = tr.find_all("td")
             result.append({
@@ -43,7 +47,7 @@ class FantasyFootballCalculatorScraper(AbstractScraper):
             })
 
         return result
-    
+
     def standard_rankings(self):
         return self.data[Format.STANDARD]
 
