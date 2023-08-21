@@ -33,12 +33,12 @@ class CBSSportsScraper(AbstractScraper):
             for row in rows:
                 rank = row.find({ "div": { "class": "rank" } }).text
                 name = row.find({ "span": { "class": "player-name" } }).text
-                team_pos = row.find({ "span": { "class": "team position" } }).text.split(" ")
+                yikes = row.find_all("span")[1].text.split("\n")
                 if name not in players:
                     players[name] = {
                         "ranks": [int(rank)],
-                        "team": team_pos[0],
-                        "position": team_pos[1]
+                        "team": yikes[1].strip(),
+                        "position": yikes[2].strip()
                     }
                 else:
                     players[name]["ranks"].append(int(rank))
@@ -51,8 +51,8 @@ class CBSSportsScraper(AbstractScraper):
             player["rank"] = index + 1
         return result
 
-    def standard_rankings(self):
+    def standard_rankings(self) -> list:
         return self.data[Format.STANDARD]
     
-    def ppr_rankings(self):
+    def ppr_rankings(self) -> list:
         return self.data[Format.PPR]

@@ -20,9 +20,3 @@ def get_supported_sites() -> list[str]:
     
 def scraper_exists_for_site(site: str) -> bool:
     return site in get_supported_sites()
-
-def aggregate_rankings(sites: list[str], format: str) -> list[dict]:
-    for site in sites:
-        scraper = scrape(site)
-        
-    pass

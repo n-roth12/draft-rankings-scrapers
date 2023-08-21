@@ -27,7 +27,6 @@ class FantasyProsScraper(AbstractScraper):
 
     def scrape(self, format: str) -> list:
         results = requests.get(URLS[format], headers=self.headers, timeout=5)
-        print(self.headers)
         soup = BeautifulSoup(results.text, "html.parser")
 
         scripts = soup.find_all("script")
