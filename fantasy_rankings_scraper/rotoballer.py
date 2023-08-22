@@ -37,6 +37,12 @@ class RotoBallerScraper(AbstractScraper):
             })
         return players
 
+    def get_format(self, format: str):
+        if format not in self.data.keys():
+            print('Error: Invalid format provided')
+            return None
+        return self.data[format]
+
     def standard_rankings(self):
         return self.data[Format.STANDARD]
 

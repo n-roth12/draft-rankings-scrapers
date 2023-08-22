@@ -1,6 +1,6 @@
 import sys
-from draft_rankings_scrapers import scrape
-from draft_rankings_scrapers.format import Format
+from fantasy_rankings_scraper import scrape
+from fantasy_rankings_scraper.format import Format
 
 
 def scrape_rankings(args: list):

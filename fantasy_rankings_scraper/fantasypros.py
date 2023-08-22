@@ -44,7 +44,6 @@ class FantasyProsScraper(AbstractScraper):
 
     def get_format(self, format: str):
         if format not in self.data.keys():
-            print(self.data.keys())
             print('Error: Invalid format provided')
             return None
         return self.data[format]
