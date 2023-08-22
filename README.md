@@ -2,6 +2,11 @@
 A Python package for scraping fantasy football draft rankings across multiple websites.
 
 ### Installation
+#### As Package
+To install and use as a Python package:
+```
+python3 -m pip install fantasy-rankings-scraper
+```
 #### Repo
 Clone the repository onto your machine to get started. Ensure you have Python and pip installed, then set up the virtual environment using:
 ```
@@ -9,11 +14,18 @@ pipenv install -r "requirements.txt"
 pipenv shell
 ```
 ### Usage
+#### Package Example
+```
+from fantasy_rankings_scraper import scrape
+data = scrape('fantasypros.com')
+
+print(data.get_format(1))
+```
 #### Command Line Example
 ```
 python scrape.py fantasypros.com 1
 ```
-These will output the scraped Standard scoring rankings from fantasypros.com. 
+Both of these will output the scraped Standard scoring rankings from fantasypros.com. 
 ### About 
 #### Scoring Format Mapping
 * 1 = Standard
