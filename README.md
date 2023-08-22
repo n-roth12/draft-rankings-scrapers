@@ -1,4 +1,4 @@
-# DRAFT-RANKINGS-SCRAPERS [![n-roth12](https://circleci.com/gh/n-roth12/fantasy-rankings-scraper.svg?style=shield)](https://app.circleci.com/pipelines/github/n-roth12/fantasy-rankings-scraper)
+# FANTASY-RANKINGS-SCRAPER [![n-roth12](https://circleci.com/gh/n-roth12/fantasy-rankings-scraper.svg?style=shield)](https://app.circleci.com/pipelines/github/n-roth12/fantasy-rankings-scraper)
 A Python package for scraping fantasy football draft rankings across multiple websites.
 
 ### Installation
