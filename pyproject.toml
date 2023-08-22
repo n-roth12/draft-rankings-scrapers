@@ -2,7 +2,7 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
-name = "nfl-rankings-scraper"
+name = "fantasy-rankings-scraper"
 version = "0.0.1"
 authors = [
   { name="Nolan Roth" },
@@ -17,4 +17,4 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/n-roth12/nfl-rankings-scrapers"
+"Homepage" = "https://github.com/n-roth12/fantasy-rankings-scraper"
